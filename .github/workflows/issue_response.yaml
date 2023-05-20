@@ -1,4 +1,4 @@
-name: issue_response
+name: Windows Action Example with Fun
 
 on:
   issues:
@@ -10,17 +10,25 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v3
+      - name: Set up Git
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
         with:
-          issue-number: ${{github.event.issue.number}}
-          body: |
-            🎉 Thank You for Raising This Issue! 🎉
+          node-version: '14'
 
-            ![Meme](https://static.pupperish.com/images/iuhNwqKdFMPn_3895_700.jpg)
+      - name: Install dependencies
+        run: npm install
 
-            Please wait patiently while we look into it. 🕒
-
-            We appreciate your contribution! Feel free to grab a :coffee: or enjoy some :pizza: while we work on a solution.
-
-            Have a great day! 😄
+      - name: Create comment
+        run: |
+          echo "🎉 Thank You for Raising This Issue! 🎉"
+          echo ""
+          echo "![Meme](https://static.pupperish.com/images/iuhNwqKdFMPn_3895_700.jpg)"
+          echo ""
+          echo "Please wait patiently while we look into it. 🕒"
+          echo ""
+          echo "We appreciate your contribution! Feel free to grab a ☕️ or enjoy some 🍕 while we work on a solution."
+          echo ""
+          echo "Have a great day! 😄"
