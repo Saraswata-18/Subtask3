@@ -7,26 +7,20 @@ on:
 
 jobs:
   comment:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - name: Set up Git
-        uses: actions/checkout@v2
-
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
       - name: Create comment
-        run: |
-          $commentBody = @{
-            body = "🎉 Thank You for Raising This Issue! 🎉`n`n![Meme](https://example.com/meme.jpg)`n`nPlease wait patiently while we look into it. 🕒`n`nWe appreciate your contribution! Feel free to grab a ☕️ or enjoy some 🍕 while we work on a solution.`n`nHave a great day! 😄"
-          }
-          Invoke-RestMethod -Uri "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments" -Headers @{
-            "Authorization" = "Bearer $env:GITHUB_TOKEN"
-            "Content-Type" = "application/json"
-          } -Method Post -Body ($commentBody | ConvertTo-Json)
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{github.event.issue.number}}
+          body: |
+           Thank You for Raising This Issue! 
+
+            ![Meme](https://static.pupperish.com/images/iuhNwqKdFMPn_3895_700.jpg)
+
+            Please wait patiently while we look into it.
+
+            We appreciate your contribution!
+
+            Have a great day! 
