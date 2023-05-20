@@ -1,4 +1,4 @@
-name: Windows Action Example with Fun
+name: issue_response
 
 on:
   issues:
@@ -23,12 +23,10 @@ jobs:
 
       - name: Create comment
         run: |
-          echo "🎉 Thank You for Raising This Issue! 🎉"
-          echo ""
-          echo "![Meme](https://static.pupperish.com/images/iuhNwqKdFMPn_3895_700.jpg)"
-          echo ""
-          echo "Please wait patiently while we look into it. 🕒"
-          echo ""
-          echo "We appreciate your contribution! Feel free to grab a ☕️ or enjoy some 🍕 while we work on a solution."
-          echo ""
-          echo "Have a great day! 😄"
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "body": "🎉 Thank You for Raising This Issue! 🎉\n\n![Meme](https://example.com/meme.jpg)\n\nPlease wait patiently while we look into it. 🕒\n\nWe appreciate your contribution! Feel free to grab a ☕️ or enjoy some 🍕 while we work on a solution.\n\nHave a great day! 😄"
+            }' \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"
