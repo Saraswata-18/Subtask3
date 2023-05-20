@@ -10,9 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Comment on Issue
-        uses: peter/github-issue-commenter@v1
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v3
         with:
-          comment: |
-            Thank You for Raising This Issue!!
-            Please wait patiently while we look into it :)
+          issue-number: ${{github.event.issue.number}}
+          body: |
+            🎉 Thank You for Raising This Issue! 🎉
+
+            ![Meme](https://static.pupperish.com/images/iuhNwqKdFMPn_3895_700.jpg)
+
+            Please wait patiently while we look into it. 🕒
+
+            We appreciate your contribution! Feel free to grab a :coffee: or enjoy some :pizza: while we work on a solution.
+
+            Have a great day! 😄
